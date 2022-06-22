@@ -8,9 +8,8 @@ import './global.css'
 
 function App() {
   return (
-    <div>
+    <>
       <Header />
-
       <div className={styles.wrapper}>
         <Sidebar />
 
@@ -20,7 +19,8 @@ function App() {
           <Post />
         </main>
       </div>
-    </div>
+
+    </>
   )
 }
 

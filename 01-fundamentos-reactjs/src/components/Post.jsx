@@ -1,4 +1,4 @@
-import { styles } from './Post.module.css'
+import styles from './Post.module.css'
 
 export function Post() {
   return (
@@ -16,14 +16,25 @@ export function Post() {
       </header>
 
       <div className={styles.content}>
-
         <p>Learn everything there </p>
         <p>from its medieval origins to the digital era</p>
+        <p>is to know about the ubiquitous lorem ipsum passage</p>
         <a href=''>
-          <p>is to know about the ubiquitous lorem ipsum passage</p>
           <p>anim id est laborum</p>
         </a>
       </div>
+
+      <form className={styles.commentForm}>
+        <strong>Deixe o seu comentário</strong>
+
+        <textarea
+          placeholder='Deixe um comentário'
+        />
+
+        <footer>
+          <button type="submit">Comentar</button>
+        </footer>
+      </form>
     </article>
   )
 }
