@@ -1,12 +1,20 @@
 import { format, formatDistanceToNow } from 'date-fns'
 import ptBR from 'date-fns/locale/pt-BR' 
+import { useState } from 'react'
 
 import { Avatar } from './Avatar'
 import { Comment } from './Comment'
 
 import styles from './Post.module.css'
 
+
 export function Post({author, content, publishedAt}) {
+  const [comments, setComments] = useState([
+    'Comentário 1', 
+  ])
+
+  const [newCommentText, setNewCommentText] = useState('')
+  
   const publishedDateFormatted = 
     format(publishedAt, "d 'de' LLLL 'às' HH:mm'h'", {
       locale: ptBR
@@ -19,6 +27,17 @@ export function Post({author, content, publishedAt}) {
         addSuffix: true,
       }
     )
+
+  function handleCreateNewComment() {
+    event.preventDefault()
+
+    setComments([...comments, newCommentText])
+    setNewCommentText('')
+  }
+
+  function handleNewCommentChange () { 
+    setNewCommentText(event.target.value)
+  }
 
   return (
     <article className={styles.post}>
@@ -44,22 +63,16 @@ export function Post({author, content, publishedAt}) {
             return <p><a href="#">{line.content}</a></p>
           }
         })}
-
-
-
-        {/* <p>Learn everything there </p>
-        <p>from its medieval origins to the digital era</p>
-        <p>is to know about the ubiquitous lorem ipsum passage</p>
-        <a href=''>
-          <p>anim id est laborum</p>
-        </a> */}
       </div>
 
-      <form className={styles.commentForm}>
+      <form onSubmit={handleCreateNewComment} className={styles.commentForm}>
         <strong>Deixe o seu comentário</strong>
 
         <textarea
+          name="comment"
           placeholder='Deixe um comentário'
+          value={newCommentText}
+          onChange={handleNewCommentChange}
         />
 
         <footer>
@@ -69,9 +82,9 @@ export function Post({author, content, publishedAt}) {
 
 
       <div className={styles.commentList}>
-        <Comment />
-        <Comment />
-        <Comment />
+        {comments.map(comment => {
+          return <Comment content={comment}/>
+        })}
       </div>
     </article>
   )
