@@ -16,6 +16,7 @@ interface Author {
 interface Content {
   type: 'paragraph' | 'link'
   content: string
+  href?: string
 }
 
 export interface PostProps {
