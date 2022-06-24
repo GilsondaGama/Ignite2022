@@ -15,18 +15,16 @@ export function Post({author, content, publishedAt}) {
 
   const [newCommentText, setNewCommentText] = useState('')
   
-  const publishedDateFormatted = 
-    format(publishedAt, "d 'de' LLLL 'às' HH:mm'h'", {
+  const publishedDateFormatted = format(publishedAt, "d 'de' LLLL 'às' HH:mm'h'", {
       locale: ptBR
     }
   )
 
-  const publishedDateRelativetoNow = 
-    formatDistanceToNow(publishedAt, {
-        locale: ptBR,
-        addSuffix: true,
-      }
-    )
+  const publishedDateRelativetoNow = formatDistanceToNow(publishedAt, {
+      locale: ptBR,
+      addSuffix: true,
+    }
+  )
 
   function handleCreateNewComment() {
     event.preventDefault()
@@ -36,6 +34,7 @@ export function Post({author, content, publishedAt}) {
   }
 
   function handleNewCommentChange () { 
+    event.target.setCustomValidity('')
     setNewCommentText(event.target.value)
   }
 
@@ -46,6 +45,12 @@ export function Post({author, content, publishedAt}) {
 
     setComments(commentsWithoutDeletedOne) 
   }
+
+  function handleNewCommentInvalid() {
+    event.target.setCustomValidity('Por favor, digite um comentário')
+  }
+
+  const isNewCommentEmpty = newCommentText.length === 0
 
   return (
     <article className={styles.post}>
@@ -81,10 +86,14 @@ export function Post({author, content, publishedAt}) {
           placeholder='Deixe um comentário'
           value={newCommentText}
           onChange={handleNewCommentChange}
+          onInvalid={handleNewCommentInvalid}
+          required
         />
 
         <footer>
-          <button type="submit">Comentar</button>
+          <button type="submit" disabled={isNewCommentEmpty}>
+            Comentar
+          </button>
         </footer>
       </form>
 
