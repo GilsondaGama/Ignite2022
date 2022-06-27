@@ -1,6 +1,8 @@
+import { Header } from "./components/Header"
+import { Task } from "./components/Task"
+
 import styles from './App.module.css'
 import './global.css'
-
 
 const tasks = [
   {
@@ -11,14 +13,12 @@ const tasks = [
 function App() {
   return (
     <>
-      {/* <Header /> */}
+      <Header />
       <div className={styles.wrapper}>
         <main>
-          <h1>Hello! World</h1>
-          {/* <TaskList /> */}
+          <Task />
         </main>
       </div>
-
     </>
   )
 }
