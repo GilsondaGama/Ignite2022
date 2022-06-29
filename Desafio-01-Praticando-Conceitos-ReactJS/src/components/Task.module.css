@@ -43,10 +43,6 @@
   background: var(--blue);
 }
 
-.taskList {
-  
-}
-
 .taskList header {
   display: flex;
   margin: 91px auto 24px;
@@ -88,22 +84,36 @@
   margin: 0 0.5rem;
 }
 
-.checkCircle {  
+.taskCheckIsComplete {  
   background: var(--blue-dark);
   border-radius: 50%;
+  /* 
+  padding: 4px; */
+}
+
+.circle:hover {
+  background-color: rgba(130, 132, 250, 0.1);
+  color: var(--blue-dark);
+  border-radius: 50%;
+}
+
+
+.taskTrashButton {
+  background: transparent;
+  border: 0;
+  color: var(--gray-300);
+  cursor: pointer;
+  line-height: 0;
+  border-radius: 4px;
   padding: 4px;
 }
 
-
-.Circle {
-  color: var(--blue);
-
+.taskTrashButton:hover {
+  color: var(--danger);
+  background: var(--gray-400);
+  border-radius: 4px;
+  padding: 4px;
 }
-
-.taskItem button {
-
-}
-
 
 
 /* .commentForm footer {
