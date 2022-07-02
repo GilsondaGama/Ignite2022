@@ -3,6 +3,7 @@ import { useState, ChangeEvent, FormEvent, InvalidEvent, } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 import styles from './Task.module.css'
+import clipboard from '../assets/clipboard.svg'
 
 interface Task {
   id: string;
@@ -78,63 +79,71 @@ export function Task() {
     setTasks(tasksWithoutDeletedOne)
 
     setTasksCompleteds(tasksWithoutDeletedOne.filter(task => task.isCompleted).length)
-    // setTasksCompleteds(tasks.filter(task => task.isCompleted).length)    
   }
 
   return (
-    <div className={styles.task}>
-      <header>
-        <form onSubmit={handleCreateNewTask}>
-          <textarea
-            name="task"
-            value={newTaskTitle}
-            onChange={handleNewTaskChange}
-            onInvalid={handleNewTaskInvalid}
-            required
-          />
-
-          <button type="submit">
-            Criar
-            <PlusCircle size={24}/>
-          </button>
-        </form>        
-      </header>
-
-      <div className={styles.taskList}>
+    <>       
+      <div className={styles.task}>
         <header>
-          <p>Tarefas criadas {tasks.length}</p>      
-          <p>Concluídas {tasksCompleteds} de {tasks.length}</p>
+          <form onSubmit={handleCreateNewTask}>
+            <textarea
+              name="task"
+              placeholder="Adicione uma nova tarefa"
+              value={newTaskTitle}
+              onChange={handleNewTaskChange}
+              onInvalid={handleNewTaskInvalid}
+              required
+            />
+
+            <button type="submit">
+              Criar
+              <PlusCircle size={24}/>
+            </button>
+          </form>        
         </header>
+          <div className={styles.taskList}>
+            <header>
+              <p>Tarefas criadas {tasks.length}</p>      
+              <p>Concluídas {tasksCompleteds} de {tasks.length}</p>
+            </header>
+            <hr/>
 
-        {tasks.map(task => {
-          return (
-            <div key={task.id} className={styles.taskItem}> 
-              <div className={styles.checkbox}>         
-                <input 
-                  type="checkbox"
-                  // readOnly
-                  checked={task.isCompleted}
-                  onClick={() => handleTogleIsCompleted(task.id)}
-                />              
-              </ div>
+            {tasks.map(task => {
+              return (
+                <div key={task.id} className={styles.taskItem}> 
+                  <div className={styles.checkbox}>         
+                    <input 
+                      type="checkbox"
+                      // readOnly
+                      checked={task.isCompleted}
+                      onClick={() => handleTogleIsCompleted(task.id)}
+                    />              
+                  </ div>
 
-              <p className={task.isCompleted ? styles.taskTitleCheck : styles.taskTitleNoCheck}>
-                 {task.title}
-              </p>
+                  <p className={task.isCompleted ? styles.taskTitleCheck : styles.taskTitleNoCheck}>
+                    {task.title}
+                  </p>
 
-              <button
-                type="button"
-                className={styles.taskTrashButton}
-                onClick={() => handleDeleteTask(task.id)}
-                title="Deletar comentário"
-              >
-                <Trash size={30} />
-              </button>
-            </div>
+                  <button
+                    type="button"
+                    className={styles.taskTrashButton}
+                    onClick={() => handleDeleteTask(task.id)}
+                    title="Deletar comentário"
+                  >
+                    <Trash size={30} />
+                  </button>
+                </div>
 
-          )
-        })}
+              )
+            })}
+          </div>
+
+          <div className={styles.emptyTasks}>
+            <img src={clipboard} alt="Logo do Desafio 01 - ToDo" />
+            <strong>Você ainda não tem tarefas cadastradas</strong>
+            <span>Crie tarefas e organize seus itens a fazer</span>
+          </div>
       </div>
-    </div>
+    </>
   )
 }
