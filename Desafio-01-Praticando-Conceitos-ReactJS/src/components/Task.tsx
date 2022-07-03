@@ -95,6 +95,7 @@ export function Task() {
                 title={task.title}
                 isCompleted={task.isCompleted}
                 onDeleteTask={handleDeleteTask}
+                onTogleIsCompleted={handleTogleIsCompleted}
               />
             
             )

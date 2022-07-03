@@ -7,12 +7,17 @@ interface TaskProps {
   title: string;
   isCompleted: boolean;
   onDeleteTask: (id: string) => void  
+  onTogleIsCompleted: (id: string) => void  
 }
 
-export function TaskList({id, title, isCompleted, onDeleteTask}: TaskProps) {
+export function TaskList({id, title, isCompleted, onDeleteTask, onTogleIsCompleted}: TaskProps) {
 
   function handleDeleteTask() {
     onDeleteTask(id);
+  }
+
+  function handleTogleIsCompleted() {
+    onTogleIsCompleted(id);
   }
 
   return(
@@ -22,7 +27,7 @@ export function TaskList({id, title, isCompleted, onDeleteTask}: TaskProps) {
         type="checkbox"
         checked={isCompleted}
         readOnly
-        // onClick={() => handleTogleIsCompleted(id)}
+        onClick={handleTogleIsCompleted}
       />              
     </ div>
 
