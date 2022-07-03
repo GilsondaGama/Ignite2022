@@ -58,59 +58,58 @@ export function Task() {
   }
 
   return (
-    <>       
-      <div className={styles.task}>
+    <div className={styles.task}>
+      <header>
+        <form onSubmit={handleCreateNewTask}>
+          <textarea
+            name="task"
+            placeholder="Adicione uma nova tarefa"
+            value={newTaskTitle}
+            onChange={handleNewTaskChange}
+            onInvalid={handleNewTaskInvalid}
+            required
+          />
+
+          <button type="submit">
+            Criar
+            <PlusCircle size={24}/>
+          </button>
+        </form>        
+      </header>
+
+      <div className={styles.tasksCompleteds}>
         <header>
-          <form onSubmit={handleCreateNewTask}>
-            <textarea
-              name="task"
-              placeholder="Adicione uma nova tarefa"
-              value={newTaskTitle}
-              onChange={handleNewTaskChange}
-              onInvalid={handleNewTaskInvalid}
-              required
-            />
-
-            <button type="submit">
-              Criar
-              <PlusCircle size={24}/>
-            </button>
-          </form>        
+            <p>Tarefas criadas {tasksTotal}</p>      
+            <p>Concluídas {tasksCompleteds} de {tasksTotal}</p>
         </header>
-
-        <div className={styles.tasksCompleteds}>
-          <header>
-              <p>Tarefas criadas {tasksTotal}</p>      
-              <p>Concluídas {tasksCompleteds} de {tasksTotal}</p>
-          </header>
-          <hr/>
-        </div>
-    
-        <div className={styles.taskList}>          
-          { tasks.length > 0 && 
-            tasks.map(task => {
-              return (
-                <TaskList 
-                  key={task.id}
-                  id={task.id}
-                  title={task.title}
-                  isCompleted={task.isCompleted}
-                />
-              
-              )
-            })
-          }
-
-          { tasks.length === 0 && 
-            <div className={styles.emptyTasks}>
-              <img src={clipboard} alt="Logo do Desafio 01 - ToDo" />
-              <strong>Você ainda não tem tarefas cadastradas</strong>
-              <span>Crie tarefas e organize seus itens a fazer</span>
-            </div>
-          }
-        </div>
+        <hr/>
       </div>
-    </>
+  
+      <div className={styles.taskList}>          
+        { tasks.length > 0 && 
+          tasks.map(task => {
+            return (
+              <TaskList 
+                key={task.id}
+                id={task.id}
+                title={task.title}
+                isCompleted={task.isCompleted}
+                onDeleteTask={handleDeleteTask}
+              />
+            
+            )
+          })
+        }
+
+        { tasks.length === 0 && 
+          <div className={styles.emptyTasks}>
+            <img src={clipboard} alt="Logo do Desafio 01 - ToDo" />
+            <strong>Você ainda não tem tarefas cadastradas</strong>
+            <span>Crie tarefas e organize seus itens a fazer</span>
+          </div>
+        }
+      </div>
+    </div>
   )
 }
               

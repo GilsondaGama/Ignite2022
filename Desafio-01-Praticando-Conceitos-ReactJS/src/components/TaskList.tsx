@@ -6,9 +6,15 @@ interface TaskProps {
   id: string;
   title: string;
   isCompleted: boolean;
+  onDeleteTask: (id: string) => void  
 }
 
-export function TaskList({id, title, isCompleted}: TaskProps) {
+export function TaskList({id, title, isCompleted, onDeleteTask}: TaskProps) {
+
+  function handleDeleteTask() {
+    onDeleteTask(id);
+  }
+
   return(
     <div key={id} className={styles.taskItem}> 
     <div className={styles.checkbox}>         
@@ -27,7 +33,7 @@ export function TaskList({id, title, isCompleted}: TaskProps) {
     <button
       type="button"
       className={styles.taskTrashButton}
-      // onClick={() => handleDeleteTask(task.id)}
+      onClick={handleDeleteTask}
       title="Deletar comentário"
     >
       <Trash size={30} />
